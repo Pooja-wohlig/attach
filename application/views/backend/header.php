@@ -97,7 +97,8 @@ $(document).ready(function(){
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
             </div>
             <!--logo start-->
-            <a href="#" class="logo"> <span><?php echo getconfig("projectname");?></span></a>
+		  <a href="#" class="logo"> <span><b><u>ATTACH</u></b></span></a>
+<!--            <a href="#" class="logo"> <span><?php echo getconfig("projectname");?></span></a>-->
             <!--logo end-->
             <div class="top-nav ">
                 <!--search & user info start-->
