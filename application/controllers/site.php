@@ -118,6 +118,7 @@ class Site extends CI_Controller
                 
 			}
             
+            
 			if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$dob,$creationdate,$modificationdate)==0)
 			$data['alerterror']="New user could not be created.";
 			else
@@ -355,307 +356,408 @@ class Site extends CI_Controller
     
     public function viewuserpoll()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewuserpoll";
-$data["base_url"]=site_url("site/viewuserpolljson");
-$data["title"]="View userpoll";
-$this->load->view("template",$data);
+	$access=array("1");
+	$this->checkaccess($access);
+	$data["page"]="viewuserpoll";
+	$data["base_url"]=site_url("site/viewuserpolljson");
+	$data["title"]="View userpoll";
+	$this->load->view("template",$data);
 }
 function viewuserpolljson()
 {
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`attach_userpoll`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`attach_userpoll`.`image`";
-$elements[1]->sort="1";
-$elements[1]->header="Image";
-$elements[1]->alias="image";
-$elements[2]=new stdClass();
-$elements[2]->field="`attach_userpoll`.`title`";
-$elements[2]->sort="1";
-$elements[2]->header="Title";
-$elements[2]->alias="title";
-$elements[3]=new stdClass();
-$elements[3]->field="`attach_userpoll`.`video`";
-$elements[3]->sort="1";
-$elements[3]->header="Video";
-$elements[3]->alias="video";
-$elements[4]=new stdClass();
-$elements[4]->field="`user`.`name`";
-$elements[4]->sort="1";
-$elements[4]->header="User";
-$elements[4]->alias="user";
-$elements[5]=new stdClass();
-$elements[5]->field="`attach_userpoll`.`status`";
-$elements[5]->sort="1";
-$elements[5]->header="Status";
-$elements[5]->alias="status";
-$elements[6]=new stdClass();
-$elements[6]->field="`attach_userpoll`.`shouldhavecomment`";
-$elements[6]->sort="1";
-$elements[6]->header="Should Have Comment";
-$elements[6]->alias="shouldhavecomment";
-$elements[7]=new stdClass();
-$elements[7]->field="`attach_userpoll`.`timestamp`";
-$elements[7]->sort="1";
-$elements[7]->header="Time stamp";
-$elements[7]->alias="timestamp";
-$elements[8]=new stdClass();
-$elements[8]->field="`attach_userpoll`.`content`";
-$elements[8]->sort="1";
-$elements[8]->header="Content";
-$elements[8]->alias="content";
-$elements[9]=new stdClass();
-$elements[9]->field="`attach_userpoll`.`creationdate`";
-$elements[9]->sort="1";
-$elements[9]->header="Creation Date";
-$elements[9]->alias="creationdate";
-$elements[10]=new stdClass();
-$elements[10]->field="`attach_userpoll`.`modificationdate`";
-$elements[10]->sort="1";
-$elements[10]->header="Modification Date";
-$elements[10]->alias="modificationdate";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `attach_userpoll` LEFT OUTER JOIN `user` ON `user`.`id`=`attach_userpoll`.`user`");
-$this->load->view("json",$data);
+	$elements=array();
+	$elements[0]=new stdClass();
+	$elements[0]->field="`attach_userpoll`.`id`";
+	$elements[0]->sort="1";
+	$elements[0]->header="ID";
+	$elements[0]->alias="id";
+	
+	$elements[1]=new stdClass();
+	$elements[1]->field="`attach_userpoll`.`image`";
+	$elements[1]->sort="1";
+	$elements[1]->header="Image";
+	$elements[1]->alias="image";
+	
+	$elements[2]=new stdClass();
+	$elements[2]->field="`attach_userpoll`.`title`";
+	$elements[2]->sort="1";
+	$elements[2]->header="Title";
+	$elements[2]->alias="title";
+	
+	$elements[3]=new stdClass();
+	$elements[3]->field="`attach_userpoll`.`video`";
+	$elements[3]->sort="1";
+	$elements[3]->header="Video";
+	$elements[3]->alias="video";
+	
+	$elements[4]=new stdClass();
+	$elements[4]->field="`user`.`name`";
+	$elements[4]->sort="1";
+	$elements[4]->header="User";
+	$elements[4]->alias="user";
+	
+	$elements[5]=new stdClass();
+	$elements[5]->field="`attach_userpoll`.`status`";
+	$elements[5]->sort="1";
+	$elements[5]->header="Status";
+	$elements[5]->alias="status";
+	
+	$elements[6]=new stdClass();
+	$elements[6]->field="`attach_userpoll`.`shouldhavecomment`";
+	$elements[6]->sort="1";
+	$elements[6]->header="Should Have Comment";
+	$elements[6]->alias="shouldhavecomment";
+	
+	$elements[7]=new stdClass();
+	$elements[7]->field="`attach_userpoll`.`timestamp`";
+	$elements[7]->sort="1";
+	$elements[7]->header="Time stamp";
+	$elements[7]->alias="timestamp";
+	
+	$elements[8]=new stdClass();
+	$elements[8]->field="`attach_userpoll`.`content`";
+	$elements[8]->sort="1";
+	$elements[8]->header="Content";
+	$elements[8]->alias="content";
+	
+	$elements[9]=new stdClass();
+	$elements[9]->field="`attach_userpoll`.`creationdate`";
+	$elements[9]->sort="1";
+	$elements[9]->header="Creation Date";
+	$elements[9]->alias="creationdate";
+	
+	$elements[10]=new stdClass();
+	$elements[10]->field="`attach_userpoll`.`modificationdate`";
+	$elements[10]->sort="1";
+	$elements[10]->header="Modification Date";
+	$elements[10]->alias="modificationdate";
+	
+	$search=$this->input->get_post("search");
+	$pageno=$this->input->get_post("pageno");
+	$orderby=$this->input->get_post("orderby");
+	$orderorder=$this->input->get_post("orderorder");
+	$maxrow=$this->input->get_post("maxrow");
+	if($maxrow=="")
+	{
+		$maxrow=20;
+	}
+	if($orderby=="")
+	{
+		$orderby="id";
+		$orderorder="ASC";
+	}
+	$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `attach_userpoll` LEFT OUTER JOIN `user` ON `user`.`id`=`attach_userpoll`.`user`");
+	$this->load->view("json",$data);
 }
 
 public function createuserpoll()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="createuserpoll";
-$data[ 'user' ] =$this->user_model->getuserdropdown();	
-$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
-$data[ 'status' ] =$this->user_model->getstatusdropdown();
-$data["title"]="Create userpoll";
-$this->load->view("template",$data);
+	$access=array("1");
+	$this->checkaccess($access);
+	$data["page"]="createuserpoll";
+	$data[ 'user' ] =$this->user_model->getuserdropdown();	
+	$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
+	$data[ 'status' ] =$this->user_model->getstatusdropdown();
+	$data["title"]="Create userpoll";
+	$this->load->view("template",$data);
 }
 public function createuserpollsubmit() 
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("image","Image","trim");
-$this->form_validation->set_rules("title","Title","trim");
-$this->form_validation->set_rules("video","Video","trim");
-$this->form_validation->set_rules("user","User","trim");
-$this->form_validation->set_rules("status","Status","trim");
-$this->form_validation->set_rules("shouldhavecomment","Should Have Comment","trim");
-$this->form_validation->set_rules("timestamp","Time stamp","trim");
-$this->form_validation->set_rules("content","Content","trim");
-$this->form_validation->set_rules("creationdate","Creation Date","trim");
-$this->form_validation->set_rules("modificationdate","Modification Date","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="createuserpoll";
-$data[ 'status' ] =$this->user_model->getstatusdropdown();
-$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
-$data[ 'user' ] =$this->user_model->getuserdropdown();
-$data["title"]="Create userpoll";
-$this->load->view("template",$data);
-}
-else
-{
-$image=$this->input->get_post("image");
-$title=$this->input->get_post("title");
-//$video=$this->input->get_post("video");
-$user=$this->input->get_post("user");
-$status=$this->input->get_post("status");
-$shouldhavecomment=$this->input->get_post("shouldhavecomment");
-$timestamp=$this->input->get_post("timestamp");
-$content=$this->input->get_post("content");
-$creationdate=$this->input->get_post("creationdate");
-$modificationdate=$this->input->get_post("modificationdate");
-	$config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'mp4|3gp|flv|mp3';
-            $this->load->library('upload', $config);
-            $filename="video";
-            $video="";
-            if (  $this->upload->do_upload($filename))
-            {
-                $uploaddata = $this->upload->data();
-                $video=$uploaddata['file_name'];
-            }
-if($this->userpoll_model->create($image,$title,$video,$user,$status,$shouldhavecomment,$timestamp,$content,$creationdate,$modificationdate)==0)
-$data["alerterror"]="New userpoll could not be created.";
-else
-$data["alertsuccess"]="userpoll created Successfully.";
-$data["redirect"]="site/viewuserpoll";
-$this->load->view("redirect",$data);
+	$access=array("1");
+	$this->checkaccess($access);
+	$this->form_validation->set_rules("image","Image","trim");
+	$this->form_validation->set_rules("title","Title","trim");
+	$this->form_validation->set_rules("video","Video","trim");
+	$this->form_validation->set_rules("user","User","trim");
+	$this->form_validation->set_rules("status","Status","trim");
+	$this->form_validation->set_rules("shouldhavecomment","Should Have Comment","trim");
+	$this->form_validation->set_rules("timestamp","Time stamp","trim");
+	$this->form_validation->set_rules("content","Content","trim");
+	$this->form_validation->set_rules("creationdate","Creation Date","trim");
+	$this->form_validation->set_rules("modificationdate","Modification Date","trim");
+	if($this->form_validation->run()==FALSE)
+	{
+		$data["alerterror"]=validation_errors();
+		$data["page"]="createuserpoll";
+		$data[ 'status' ] =$this->user_model->getstatusdropdown();
+		$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
+		$data[ 'user' ] =$this->user_model->getuserdropdown();
+		$data["title"]="Create userpoll";
+		$this->load->view("template",$data);
+	}
+	else
+	{
+//		$image=$this->input->get_post("image");
+		$title=$this->input->get_post("title");
+		//$video=$this->input->get_post("video");
+		$user=$this->input->get_post("user");
+		$status=$this->input->get_post("status");
+		$shouldhavecomment=$this->input->get_post("shouldhavecomment");
+		$timestamp=$this->input->get_post("timestamp");
+		$content=$this->input->get_post("content");
+		$creationdate=$this->input->get_post("creationdate");
+		$modificationdate=$this->input->get_post("modificationdate");
+		       
+			 $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+		
+		
+				$config['upload_path'] = './uploads/';
+				$config['allowed_types'] = 'mp4|3gp|flv|mp3';
+				$this->load->library('upload', $config);
+				$filename="video";
+				$video="";
+				if (  $this->upload->do_upload($filename))
+				{
+					$uploaddata = $this->upload->data();
+					$video=$uploaddata['file_name'];
+				}
+	if($this->userpoll_model->create($image,$title,$video,$user,$status,$shouldhavecomment,$timestamp,$content,$creationdate,$modificationdate)==0)
+		$data["alerterror"]="New userpoll could not be created.";
+	else
+	$data["alertsuccess"]="userpoll created Successfully.";
+	$data["redirect"]="site/viewuserpoll";
+	$this->load->view("redirect",$data);
+	
 }
 }
 public function edituserpoll()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="edituserpoll";
-$data[ 'status' ] =$this->user_model->getstatusdropdown();
-$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
-$data["title"]="Edit userpoll";
-$data[ 'user' ] =$this->user_model->getuserdropdown();
-$data["before"]=$this->userpoll_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
+	$access=array("1");
+	$this->checkaccess($access);
+	$data["page"]="edituserpoll";
+	$data[ 'status' ] =$this->user_model->getstatusdropdown();
+	$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
+	$data["title"]="Edit userpoll";
+	$data[ 'user' ] =$this->user_model->getuserdropdown();
+	$data["before"]=$this->userpoll_model->beforeedit($this->input->get("id"));
+	$this->load->view("template",$data);
 }
 public function edituserpollsubmit()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->form_validation->set_rules("id","ID","trim");
-$this->form_validation->set_rules("image","Image","trim");
-$this->form_validation->set_rules("title","Title","trim");
-$this->form_validation->set_rules("video","Video","trim");
-$this->form_validation->set_rules("user","User","trim");
-$this->form_validation->set_rules("status","Status","trim");
-$this->form_validation->set_rules("shouldhavecomment","Should Have Comment","trim");
-$this->form_validation->set_rules("timestamp","Time stamp","trim");
-$this->form_validation->set_rules("content","Content","trim");
-$this->form_validation->set_rules("creationdate","Creation Date","trim");
-$this->form_validation->set_rules("modificationdate","Modification Date","trim");
-if($this->form_validation->run()==FALSE)
-{
-$data["alerterror"]=validation_errors();
-$data["page"]="edituserpoll";
-$data[ 'status' ] =$this->user_model->getstatusdropdown();
-$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
-$data[ 'user' ] =$this->user_model->getuserdropdown();
-$data["title"]="Edit userpoll";
-$data["before"]=$this->userpoll_model->beforeedit($this->input->get("id"));
-$this->load->view("template",$data);
-}
-else
-{
-$id=$this->input->get_post("id");
-$image=$this->input->get_post("image");
-$title=$this->input->get_post("title");
-$video=$this->input->get_post("video");
-$user=$this->input->get_post("user");
-$status=$this->input->get_post("status");
-$shouldhavecomment=$this->input->get_post("shouldhavecomment");
-$timestamp=$this->input->get_post("timestamp");
-$content=$this->input->get_post("content");
-$creationdate=$this->input->get_post("creationdate");
-$modificationdate=$this->input->get_post("modificationdate");
-	        $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'mp4|3gp|flv|mp3';
-            $this->load->library('upload', $config);
-            $filename="video";
-            $video="";
-            if (  $this->upload->do_upload($filename))
-            {
-                $uploaddata = $this->upload->data();
-                $video=$uploaddata['file_name'];
-            }
+	$access=array("1");
+	$this->checkaccess($access);
+	$this->form_validation->set_rules("id","ID","trim");
+	$this->form_validation->set_rules("image","Image","trim");
+	$this->form_validation->set_rules("title","Title","trim");
+	$this->form_validation->set_rules("video","Video","trim");
+	$this->form_validation->set_rules("user","User","trim");
+	$this->form_validation->set_rules("status","Status","trim");
+	$this->form_validation->set_rules("shouldhavecomment","Should Have Comment","trim");
+	$this->form_validation->set_rules("timestamp","Time stamp","trim");
+	$this->form_validation->set_rules("content","Content","trim");
+	$this->form_validation->set_rules("creationdate","Creation Date","trim");
+	$this->form_validation->set_rules("modificationdate","Modification Date","trim");
+		if($this->form_validation->run()==FALSE)
+		{
+			$data["alerterror"]=validation_errors();
+			$data["page"]="edituserpoll";
+			$data[ 'status' ] =$this->user_model->getstatusdropdown();
+			$data[ 'shouldhavecomment' ] =$this->user_model->getshouldhavecommentdropdown();	
+			$data[ 'user' ] =$this->user_model->getuserdropdown();
+			$data["title"]="Edit userpoll";
+			$data["before"]=$this->userpoll_model->beforeedit($this->input->get("id"));
+			$this->load->view("template",$data);
+		}
+		else
+		{
+	$id=$this->input->get_post("id");
+	$image=$this->input->get_post("image");
+	$title=$this->input->get_post("title");
+	$video=$this->input->get_post("video");
+	$user=$this->input->get_post("user");
+	$status=$this->input->get_post("status");
+	$shouldhavecomment=$this->input->get_post("shouldhavecomment");
+	$timestamp=$this->input->get_post("timestamp");
+	$content=$this->input->get_post("content");
+	$creationdate=$this->input->get_post("creationdate");
+	$modificationdate=$this->input->get_post("modificationdate");
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
             
-            if($video=="")
+            if($image=="")
             {
-            $video=$this->movie_model->gettrailerbyid($id);
+            $image=$this->user_model->getuserimagebyid($id);
                // print_r($image);
-                $video=$video->video;
+                $image=$image->image;
             }
-if($this->userpoll_model->edit($id,$image,$title,$video,$user,$status,$shouldhavecomment,$timestamp,$content,$creationdate,$modificationdate)==0)
-$data["alerterror"]="New userpoll could not be Updated.";
-else
-$data["alertsuccess"]="userpoll Updated Successfully.";
-$data["redirect"]="site/viewuserpoll";
-$this->load->view("redirect",$data);
-}
+			
+			
+			
+				$config['upload_path'] = './uploads/';
+				$config['allowed_types'] = 'mp4|3gp|flv|mp3';
+				$this->load->library('upload', $config);
+				$filename="video";
+				$video="";
+				if (  $this->upload->do_upload($filename))
+				{
+					$uploaddata = $this->upload->data();
+					$video=$uploaddata['file_name'];
+				}
+
+				if($video=="")
+				{
+				$video=$this->movie_model->gettrailerbyid($id);
+				   // print_r($image);
+					$video=$video->video;
+				}
+	if($this->userpoll_model->edit($id,$image,$title,$video,$user,$status,$shouldhavecomment,$timestamp,$content,$creationdate,$modificationdate)==0)
+		$data["alerterror"]="New userpoll could not be Updated.";
+		else
+		$data["alertsuccess"]="userpoll Updated Successfully.";
+		$data["redirect"]="site/viewuserpoll";
+		$this->load->view("redirect",$data);
+		}
 }
 public function deleteuserpoll()
 {
-$access=array("1");
-$this->checkaccess($access);
-$this->userpoll_model->delete($this->input->get("id"));
-$data["redirect"]="site/viewuserpoll";
-$this->load->view("redirect",$data);
+	$access=array("1");
+	$this->checkaccess($access);
+	$this->userpoll_model->delete($this->input->get("id"));
+	$data["redirect"]="site/viewuserpoll";
+	$this->load->view("redirect",$data);
 }
 public function viewuserpolloption()
 {
-$access=array("1");
-$this->checkaccess($access);
-$data["page"]="viewuserpolloption";
-$data[ 'user' ] =$this->user_model->getuserdropdown();
-$data["base_url"]=site_url("site/viewuserpolloptionjson");
-$data["title"]="View userpolloption";
-$this->load->view("template",$data);
+	$access=array("1");
+	$this->checkaccess($access);
+	$data["page"]="viewuserpolloption";
+	$data[ 'user' ] =$this->user_model->getuserdropdown();
+	$data["base_url"]=site_url("site/viewuserpolloptionjson");
+	$data["title"]="View userpolloption";
+	$this->load->view("template",$data);
 }
 function viewuserpolloptionjson()
 {
-$elements=array();
-$elements[0]=new stdClass();
-$elements[0]->field="`attach_userpolloption`.`id`";
-$elements[0]->sort="1";
-$elements[0]->header="ID";
-$elements[0]->alias="id";
-$elements[1]=new stdClass();
-$elements[1]->field="`attach_userpolloption`.`image`";
-$elements[1]->sort="1";
-$elements[1]->header="Image";
-$elements[1]->alias="image";
-$elements[2]=new stdClass();
-$elements[2]->field="`attach_userpolloption`.`order`";
-$elements[2]->sort="1";
-$elements[2]->header="Order";
-$elements[2]->alias="order";
-$elements[3]=new stdClass();
-$elements[3]->field="`attach_userpoll`.`title`";
-$elements[3]->sort="1";
-$elements[3]->header="User Poll";
-$elements[3]->alias="userpoll";
-$elements[4]=new stdClass();
-$elements[4]->field="`attach_userpolloption`.`timestamp`";
-$elements[4]->sort="1";
-$elements[4]->header="Time stamp";
-$elements[4]->alias="timestamp";
-$elements[5]=new stdClass();
-$elements[5]->field="`attach_userpolloption`.`text`";
-$elements[5]->sort="1";
-$elements[5]->header="Text";
-$elements[5]->alias="text";
-$elements[6]=new stdClass();
-$elements[6]->field="`attach_userpolloption`.`creationdate`";
-$elements[6]->sort="1";
-$elements[6]->header="Creation Date";
-$elements[6]->alias="creationdate";
-$elements[7]=new stdClass();
-$elements[7]->field="`attach_userpolloption`.`modificationdate`";
-$elements[7]->sort="1";
-$elements[7]->header="Modification Date";
-$elements[7]->alias="modificationdate";
-$search=$this->input->get_post("search");
-$pageno=$this->input->get_post("pageno");
-$orderby=$this->input->get_post("orderby");
-$orderorder=$this->input->get_post("orderorder");
-$maxrow=$this->input->get_post("maxrow");
-if($maxrow=="")
-{
-$maxrow=20;
-}
-if($orderby=="")
-{
-$orderby="id";
-$orderorder="ASC";
-}
-$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `attach_userpolloption` LEFT OUTER JOIN `attach_userpoll` ON `attach_userpoll`.`id`=`attach_userpolloption`.`userpoll`");
-$this->load->view("json",$data);
+	$elements=array();
+	$elements[0]=new stdClass();
+	$elements[0]->field="`attach_userpolloption`.`id`";
+	$elements[0]->sort="1";
+	$elements[0]->header="ID";
+	$elements[0]->alias="id";
+	
+	$elements[1]=new stdClass();
+	$elements[1]->field="`attach_userpolloption`.`image`";
+	$elements[1]->sort="1";
+	$elements[1]->header="Image";
+	$elements[1]->alias="image";
+	
+	$elements[2]=new stdClass();
+	$elements[2]->field="`attach_userpolloption`.`order`";
+	$elements[2]->sort="1";
+	$elements[2]->header="Order";
+	$elements[2]->alias="order";
+	
+	$elements[3]=new stdClass();
+	$elements[3]->field="`attach_userpoll`.`title`";
+	$elements[3]->sort="1";
+	$elements[3]->header="User Poll";
+	$elements[3]->alias="userpoll";
+	
+	$elements[4]=new stdClass();
+	$elements[4]->field="`attach_userpolloption`.`timestamp`";
+	$elements[4]->sort="1";
+	$elements[4]->header="Time stamp";
+	$elements[4]->alias="timestamp";
+	
+	$elements[5]=new stdClass();
+	$elements[5]->field="`attach_userpolloption`.`text`";
+	$elements[5]->sort="1";
+	$elements[5]->header="Text";
+	$elements[5]->alias="text";
+	
+	$elements[6]=new stdClass();
+	$elements[6]->field="`attach_userpolloption`.`creationdate`";
+	$elements[6]->sort="1";
+	$elements[6]->header="Creation Date";
+	$elements[6]->alias="creationdate";
+	
+	$elements[7]=new stdClass();
+	$elements[7]->field="`attach_userpolloption`.`modificationdate`";
+	$elements[7]->sort="1";
+	$elements[7]->header="Modification Date";
+	$elements[7]->alias="modificationdate";
+	
+	$search=$this->input->get_post("search");
+	$pageno=$this->input->get_post("pageno");
+	$orderby=$this->input->get_post("orderby");
+	$orderorder=$this->input->get_post("orderorder");
+	$maxrow=$this->input->get_post("maxrow");
+		if($maxrow=="")
+	{
+		$maxrow=20;
+	}
+		if($orderby=="")
+	{
+		$orderby="id";
+		$orderorder="ASC";
+	}
+	$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `attach_userpolloption` LEFT OUTER JOIN `attach_userpoll` ON `attach_userpoll`.`id`=`attach_userpolloption`.`userpoll`");
+	$this->load->view("json",$data);
 }
 
 public function createuserpolloption()
@@ -688,13 +790,47 @@ $this->load->view("template",$data);
 }
 else
 {
-$image=$this->input->get_post("image");
+//$image=$this->input->get_post("image");
 $order=$this->input->get_post("order");
 $userpoll=$this->input->get_post("userpoll");
 $timestamp=$this->input->get_post("timestamp");
 $text=$this->input->get_post("text");
 $creationdate=$this->input->get_post("creationdate");
 $modificationdate=$this->input->get_post("modificationdate");
+	 $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
 if($this->userpolloption_model->create($image,$order,$userpoll,$timestamp,$text,$creationdate,$modificationdate)==0)
 $data["alerterror"]="New userpolloption could not be created.";
 else
@@ -744,6 +880,49 @@ $timestamp=$this->input->get_post("timestamp");
 $text=$this->input->get_post("text");
 $creationdate=$this->input->get_post("creationdate");
 $modificationdate=$this->input->get_post("modificationdate");
+	
+	          $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+            
+            if($image=="")
+            {
+            $image=$this->user_model->getuserimagebyid($id);
+               // print_r($image);
+                $image=$image->image;
+            }
+			
 if($this->userpolloption_model->edit($id,$image,$order,$userpoll,$timestamp,$text,$creationdate,$modificationdate)==0)
 $data["alerterror"]="New userpolloption could not be Updated.";
 else
@@ -877,7 +1056,9 @@ public function edituserpollresponse()
 $access=array("1");
 $this->checkaccess($access);
 $data["page"]="edituserpollresponse";
+$data[ 'userpolloption' ] =$this->userpolloption_model->getuserpolloptiondropdown();
 $data[ 'userpoll' ] =$this->userpoll_model->getuserpolldropdown();
+$data[ 'user' ] =$this->user_model->getuserdropdown();
 $data["title"]="Edit userpollresponse";
 $data["before"]=$this->userpollresponse_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);

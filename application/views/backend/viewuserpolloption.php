@@ -6,11 +6,13 @@
 <div class="row">
 <div class="col-lg-12">
 <section class="panel">
+<!--
 <header class="panel-heading">
 User Poll Option Details
 </header>
+-->
 <div class="drawchintantable">
-<?php $this->chintantable->createsearch("User Poll Option List");?>
+<?php $this->chintantable->createsearch("<b>User Poll Option List</b>");?>
 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
 <thead>
 <tr>

@@ -37,13 +37,13 @@ $config =
 
 			"Facebook" => array (
 				"enabled" => true,
-				"keys"    => array ( "id" => "362872267247263", "secret" => "7c33f7681c8227c46d493a99f9748cb7" ),
-                "scope"   => "email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists,publish_actions"
+				"keys"    => array ( "id" => "1643177945900345", "secret" => "0b3009f12c6b831b43fc58f02acc5451" ),
+                "scope"   => "email, user_about_me, user_birthday, user_hometown, user_website,publish_actions"
 			),
 
 			"Twitter" => array (
 				"enabled" => true,
-				"keys"    => array ( "key" => "OyqptjsjeFqLlzfSZKk1AB386", "secret" => "sFuCATn4UeOmtAKAomWbVIUdi248HLNqaj106YtDvQCNcVAqkB" )
+				"keys"    => array ( "key" => "kqLspf15ZKqldwvkU0tLCSLw8", "secret" => "Wu8ZrqYivsTkkkMgdiVNtyXxoUpBqUP6PCRGE3wgGnYMjFKqDg" )
 			),
 
 			// windows live

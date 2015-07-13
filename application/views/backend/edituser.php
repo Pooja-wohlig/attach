@@ -94,9 +94,13 @@
 				<label class="col-sm-2 control-label" for="normal-field">Image</label>
 				<div class="col-sm-4">
 					<input type="file" id="normal-field" class="form-control" name="image" value="<?php echo set_value('image',$before->image);?>">
-					<?php if($before->image == "") { } else { ?>
-					<img src="<?php echo base_url('uploads')." / ".$before->image; ?>" width="140px" height="140px">
-					<?php } ?>
+						<?php if($before->image == "")
+						 { }
+						 else
+						 { ?>
+							<img src="<?php echo base_url('uploads')."/".$before->image; ?>" width="140px" height="140px">
+						<?php }
+					?>
 				</div>
 			</div>
 
